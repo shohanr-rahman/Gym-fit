@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useParams, notFound } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
 import toast from "react-hot-toast";
 import { PlusCircle, Bookmark, Loader2 } from "lucide-react";
 import { Workout } from "@/types/workout";

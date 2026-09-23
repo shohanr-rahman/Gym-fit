@@ -3,15 +3,25 @@
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import { Clock, Flame, Star, CheckCircle2, X } from "lucide-react";
+import { Clock, Flame, Star, CheckCircle2, X, ChevronDown } from "lucide-react";
 import { usePlan } from "@/context/PlanContext";
 import { Workout } from "@/types/workout";
 import Image from "next/image";
 
 type Tab = "plan" | "saved";
+type SortKey = "duration" | "caloriesBurned" | "rating";
+
+const sortOptions: { key: SortKey; label: string }[] = [
+  { key: "duration", label: "Duration" },
+  { key: "caloriesBurned", label: "Calories" },
+  { key: "rating", label: "Rating" },
+];
 
 export default function MyPlanPage() {
   const [tab, setTab] = useState<Tab>("plan");
+  const [sortKey, setSortKey] = useState<SortKey>("duration");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
   const {
     todaysPlan,
     saved,
@@ -22,7 +32,8 @@ export default function MyPlanPage() {
     isDone,
   } = usePlan();
 
-  const list = tab === "plan" ? todaysPlan : saved;
+  const rawList = tab === "plan" ? todaysPlan : saved;
+  const list = [...rawList].sort((a, b) => b[sortKey] - a[sortKey]);
 
   const totalMinutes = todaysPlan.reduce((sum, w) => sum + w.duration, 0);
   const totalCalories = todaysPlan.reduce((sum, w) => sum + w.caloriesBurned, 0);
@@ -64,28 +75,63 @@ export default function MyPlanPage() {
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="flex gap-2 mb-8 border-b border-white/10">
-          <button
-            onClick={() => setTab("plan")}
-            className={`px-4 py-2 text-sm font-bold uppercase tracking-wide border-b-2 ${
-              tab === "plan"
-                ? "border-[#ccff00] text-[#ccff00]"
-                : "border-transparent text-white/50"
-            }`}
-          >
-            Today&apos;s Plan
-          </button>
-          <button
-            onClick={() => setTab("saved")}
-            className={`px-4 py-2 text-sm font-bold uppercase tracking-wide border-b-2 ${
-              tab === "saved"
-                ? "border-[#ccff00] text-[#ccff00]"
-                : "border-transparent text-white/50"
-            }`}
-          >
-            Saved
-          </button>
+        {/* Tabs + Sort row */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 border-b border-white/10 pb-0">
+          <div className="flex gap-2">
+            <button
+              onClick={() => setTab("plan")}
+              className={`px-4 py-2 text-sm font-bold uppercase tracking-wide border-b-2 ${
+                tab === "plan"
+                  ? "border-[#ccff00] text-[#ccff00]"
+                  : "border-transparent text-white/50"
+              }`}
+            >
+              Today&apos;s Plan
+            </button>
+            <button
+              onClick={() => setTab("saved")}
+              className={`px-4 py-2 text-sm font-bold uppercase tracking-wide border-b-2 ${
+                tab === "saved"
+                  ? "border-[#ccff00] text-[#ccff00]"
+                  : "border-transparent text-white/50"
+              }`}
+            >
+              Saved
+            </button>
+          </div>
+
+          {/* Sort dropdown */}
+          <div className="relative mb-3 sm:mb-0">
+            <button
+              onClick={() => setDropdownOpen((v) => !v)}
+              className="flex items-center gap-2 border border-white/20 rounded-full px-4 py-2 text-sm text-white/80 hover:border-white/50 transition-colors"
+            >
+              Sort By:{" "}
+              <span className="text-[#ccff00] font-bold">
+                {sortOptions.find((o) => o.key === sortKey)?.label}
+              </span>
+              <ChevronDown className="w-4 h-4" />
+            </button>
+
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-2 w-40 bg-[#111] border border-white/10 rounded-lg overflow-hidden z-10">
+                {sortOptions.map((opt) => (
+                  <button
+                    key={opt.key}
+                    onClick={() => {
+                      setSortKey(opt.key);
+                      setDropdownOpen(false);
+                    }}
+                    className={`w-full text-left px-4 py-2 text-sm hover:bg-white/10 ${
+                      sortKey === opt.key ? "text-[#ccff00]" : "text-white/80"
+                    }`}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Loading state */}

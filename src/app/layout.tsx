@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { PlanProvider } from "@/context/PlanContext";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
@@ -20,7 +21,11 @@ export const metadata: Metadata = {
   description: "Track your daily workouts",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html
       lang="en"
@@ -29,7 +34,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         <PlanProvider>
           <Navbar />
+
           {children}
+
+          <Footer />
+
           <Toaster
             position="bottom-center"
             toastOptions={{

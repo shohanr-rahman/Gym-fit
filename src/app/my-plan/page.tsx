@@ -201,6 +201,7 @@ export default function MyPlanPage() {
                     <button
                       onClick={() => handleMarkDone(w.id)}
                       title="Mark as Done"
+                      aria-label="Mark as done"
                       className="p-2 rounded-full border border-white/30 hover:border-[#ccff00] hover:text-[#ccff00] transition-colors"
                     >
                       <CheckCircle2 className="w-4 h-4" />
@@ -209,6 +210,7 @@ export default function MyPlanPage() {
                   <button
                     onClick={() => handleRemove(w)}
                     title="Remove"
+                    aria-label="Remove from list"
                     className="p-2 rounded-full border border-white/30 hover:border-red-400 hover:text-red-400 transition-colors"
                   >
                     <X className="w-4 h-4" />

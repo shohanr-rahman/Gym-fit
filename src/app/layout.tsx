@@ -17,8 +17,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FitLog",
-  description: "Track your daily workouts",
+  title: "FitLog — Workout Library",
+  description:
+    "A dark, no-nonsense gym companion. Pick a lift, lock it into today's plan, and track your week's work.",
+  keywords: ["workout", "gym", "fitness", "exercise tracker", "fitlog"],
 };
 
 export default function RootLayout({

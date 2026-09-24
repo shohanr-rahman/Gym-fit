@@ -31,3 +31,6 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+## 🌐 Live Demo
+
+[https://gym-fit-nu.vercel.app](https://gym-fit-nu.vercel.app)

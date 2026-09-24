@@ -32,7 +32,7 @@ export default function Hero() {
         {/* Right - hero image */}
         <div className="relative w-full aspect-square md:aspect-[4/5]">
           <Image
-            src="/hero-image.png"
+            src="/Gym-fit/hero-image.png"
             alt="Athlete training"
             fill
             priority

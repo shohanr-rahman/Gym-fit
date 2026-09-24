@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: "export",
+
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
@@ -9,6 +12,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+
+  basePath: "/Gym-fit",
+  assetPrefix: "/Gym-fit/",
 };
 
 export default nextConfig;

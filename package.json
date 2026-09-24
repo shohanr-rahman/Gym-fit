@@ -2,7 +2,12 @@
   "name": "gym-fit",
   "version": "0.1.0",
   "description": "FitLog — a dark, no-nonsense gym workout library and planner built with Next.js.",
-  "keywords": ["nextjs", "fitness", "gym", "workout-tracker"],
+  "keywords": [
+    "nextjs",
+    "fitness",
+    "gym",
+    "workout-tracker"
+  ],
   "private": true,
   "scripts": {
     "dev": "next dev",
